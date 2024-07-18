@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <style>
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group input,
+        .form-group textarea {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-group input.is-invalid,
+        .form-group textarea.is-invalid {
+            border-color: red;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group .invalid-feedback {
+            color: red;
+            display: none;
+        }
+        .form-group.is-invalid .invalid-feedback {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <form id="myForm">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name">
+            <div class="invalid-feedback">This field is required</div>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+            <div class="invalid-feedback">A valid email address is required</div>
+        </div>
+        <div class="form-group">
+            <label for="website">Website:</label>
+            <input type="url" id="website" name="website">
+            <div class="invalid-feedback">A valid URL is required</div>
+        </div>
+        <div class="form-group">
+            <label for="message">Message:</label>
+            <textarea id="message" name="message"></textarea>
+            <div class="invalid-feedback">This field is required</div>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('myForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var isValid = true;
+
+        // Validate Name
+        var name = document.getElementById('name');
+        if (name.value.trim() === '') {
+            name.classList.add('is-invalid');
+            name.closest('.form-group').classList.add('is-invalid');
+            isValid = false;
+        } else {
+            name.classList.remove('is-invalid');
+            name.closest('.form-group').classList.remove('is-invalid');
+        }
+
+        // Validate Email
+        var email = document.getElementById('email');
+        var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        if (email.value.trim() === '' || !emailPattern.test(email.value)) {
+            email.classList.add('is-invalid');
+            email.closest('.form-group').classList.add('is-invalid');
+            isValid = false;
+        } else {
+            email.classList.remove('is-invalid');
+            email.closest('.form-group').classList.remove('is-invalid');
+        }
+
+        // Validate Website
+        var website = document.getElementById('website');
+        var urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+        if (website.value.trim() === '' || !urlPattern.test(website.value)) {
+            website.classList.add('is-invalid');
+            website.closest('.form-group').classList.add('is-invalid');
+            isValid = false;
+        } else {
+            website.classList.remove('is-invalid');
+            website.closest('.form-group').classList.remove('is-invalid');
+        }
+
+        // Validate Message
+        var message = document.getElementById('message');
+        if (message.value.trim() === '') {
+            message.classList.add('is-invalid');
+            message.closest('.form-group').classList.add('is-invalid');
+            isValid = false;
+        } else {
+            message.classList.remove('is-invalid');
+            message.closest('.form-group').classList.remove('is-invalid');
+        }
+
+        if (isValid) {
+            alert('Form submitted successfully!');
+        }
+    });
+</script>
+
+</body>
+</html>

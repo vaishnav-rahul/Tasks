@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        body {
+            background: linear-gradient(to bottom, #ffffcc, #ffcccc);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        form {
+            width: 450px;
+            max-width: 100%;
+        }
+        form input, form select, form textarea {
+            width: calc(100% - 160px);
+            padding: 5px;
+            margin: 5px 0;
+            box-sizing: border-box;
+        }
+        form label {
+            display: inline-block;
+            width: 150px;
+        }
+        .gender-container, .checkboxes-container {
+            display: flex;
+            align-items: center;
+            width: calc(100% - 160px);
+        }
+        .gender-container label, .checkboxes-container label {
+            margin-right: 20px;
+        }
+        .declaration {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .declaration label {
+            margin-left: 5px;
+        }
+        .error {
+            color: red;
+            margin-left: 10px;
+            width: 100px;
+        }
+        .title {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: blue;
+        }
+        .submit-button {
+            background-color: red;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .side-by-side {
+            display: flex;
+            align-items: center;
+        }
+        a {
+            color: blue;
+        }
+        .checkboxes-container label {
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .checkboxes-container input[type="checkbox"] {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <form id="registrationForm">
+        <div class="title">Registration form</div>
+        <div class="row">
+            <label>First Name:</label>
+            <input type="text" id="firstName">
+            <span id="firstNameError" class="error"></span>
+        </div>
+        <div class="row">
+            <label>Last Name:</label>
+            <input type="text" id="lastName">
+            <span id="lastNameError" class="error"></span>
+        </div>
+        <div class="row">
+            <label>Email:</label>
+            <input type="email" id="email">
+            <span id="emailError" class="error"></span>
+        </div>
+        <div class="row">
+            <label>Password:</label>
+            <input type="password" id="password">
+            <span id="passwordError" class="error"></span>
+        </div>
+        <div class="row">
+            <label>Re-enter Password:</label>
+            <input type="password" id="confirmPassword">
+            <span id="confirmPasswordError" class="error"></span>
+        </div>
+        <div class="row">
+            <label>Gender:</label>
+            <div class="gender-container">
+                <label class="gender"><input type="radio" name="gender" value="Male"> Male</label>
+                <label class="gender"><input type="radio" name="gender" value="Female"> Female</label>
+            </div>
+            <span id="genderError" class="error"></span>
+        </div>
+        <div class="row">
+            <label>Age:</label>
+            <input type="number" id="age">
+            <span id="ageError" class="error"></span>
+        </div>
+        <div class="row">
+            <label>Phone Number:</label>
+            <input type="tel" id="phoneNumber">
+            <span id="phoneNumberError" class="error"></span>
+        </div>
+        <div class="row">
+            <label>Address:</label>
+            <textarea id="address"></textarea>
+            <span id="addressError" class="error"></span>
+        </div>
+        <div class="row">
+            <label>State:</label>
+            <input type="text" id="state">
+            <span id="stateError" class="error"></span>
+        </div>
+        <div class="row">
+            <label>Country:</label>
+            <select id="country">
+                <option value="">Choose your country</option>
+                <!-- Add country options here -->
+            </select>
+            <span id="countryError" class="error"></span>
+        </div>
+        <div class="row">
+            <label>Languages known:</label>
+            <div class="checkboxes-container">
+                <label class="checkboxes"><input type="checkbox" id="english" name="languages" value="English"> English</label>
+                <label class="checkboxes"><input type="checkbox" id="kannada" name="languages" value="Kannada"> Kannada</label>
+                <label class="checkboxes"><input type="checkbox" id="hindi" name="languages" value="Hindi"> Hindi</label>
+                <label class="checkboxes"><input type="checkbox" id="telugu" name="languages" value="Telugu"> Telugu</label>
+            </div>
+        </div>
+        <div class="row declaration">
+            <input type="checkbox" id="declaration" name="declaration" value="true">
+            <label for="declaration">Hereby I declare all the given details are true</label>
+            <span id="declarationError" class="error"></span>
+        </div>
+        <div class="row">
+            <a href="https://ethnus.com" target="_blank">Log in to Ethnus website</a>
+        </div>
+        <button type="button" class="submit-button" onclick="validateForm()">REGISTER</button>
+    </form>
+    <script>
+        function validateForm() {
+            let isValid = true;
+            
+            // Reset all error messages
+            document.querySelectorAll('.error').forEach(error => error.innerText = '');
+            
+            // Validate first name
+            const firstName = document.getElementById('firstName').value;
+            if (!firstName) {
+                document.getElementById('firstNameError').innerText = 'POOR';
+                isValid = false;
+            }
+            
+            // Validate last name
+            const lastName = document.getElementById('lastName').value;
+            if (!lastName) {
+                document.getElementById('lastNameError').innerText = 'POOR';
+                isValid = false;
+            }
+            
+            // Validate email
+            const email = document.getElementById('email').value;
+            if (!email) {
+                document.getElementById('emailError').innerText = 'POOR';
+                isValid = false;
+            }
+            
+            // Validate password
+            const password = document.getElementById('password').value;
+            if (!password) {
+                document.getElementById('passwordError').innerText = 'POOR';
+                isValid = false;
+            }
+            
+            // Validate confirm password
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            if (!confirmPassword || password !== confirmPassword) {
+                document.getElementById('confirmPasswordError').innerText = 'POOR OR MISMATCH';
+                isValid = false;
+            }
+            
+            // Validate gender
+            const gender = document.querySelector('input[name="gender"]:checked');
+            if (!gender) {
+                document.getElementById('genderError').innerText = 'POOR';
+                isValid = false;
+            }
+            
+            // Validate age
+            const age = document.getElementById('age').value;
+            if (!age) {
+                document.getElementById('ageError').innerText = 'POOR';
+                isValid = false;
+            }
+            
+            // Validate phone number
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            if (!phoneNumber) {
+                document.getElementById('phoneNumberError').innerText = 'POOR';
+                isValid = false;
+            }
+            
+            // Validate address
+            const address = document.getElementById('address').value;
+            if (!address) {
+                document.getElementById('addressError').innerText = 'POOR';
+                isValid = false;
+            }
+            
+            // Validate state
+            const state = document.getElementById('state').value;
+            if (!state) {
+                document.getElementById('stateError').innerText = 'POOR';
+                isValid = false;
+            }
+            
+            // Validate country
+            const country = document.getElementById('country').value;
+            if (!country) {
+                document.getElementById('countryError').innerText = 'POOR';
+                isValid = false;
+            }
+            
+            // Validate declaration
+            const declaration = document.getElementById('declaration').checked;
+            if (!declaration) {
+                document.getElementById('declarationError').innerText = 'POOR';
+                isValid = false;
+            }
+            
+            if (isValid) {
+                alert('Form submitted successfully!');
+                document.getElementById('registrationForm').reset();
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train Animation</title>
+    <style>
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .animation {
+            margin: 20px auto;
+            width: 800px;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        .train {
+            position: absolute;
+            top: 50px;
+            left: 0;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="animation">
+        <img id="train" src="https://letsdrawthat.com/wp-content/uploads/images/train/how-to-draw-a-train-fb.jpg" class="train" width="200">
+    </div>
+    <h2 style="color: blue;">Click the following buttons to handle animation</h2>
+    <div class="buttons">
+        <button onclick="startAnimation()">Start</button>
+        <button onclick="stopAnimation()">Stop</button>
+    </div>
+</div>
+
+<script>
+    var train = document.getElementById("train");
+    var position = 0;
+    var interval;
+
+    function startAnimation() {
+        interval = setInterval(moveTrain, 10);
+    }
+
+    function moveTrain() {
+        if (position >= 800) {
+            position = -200; // Reset to initial position, considering train's width
+        } else {
+            position += 2;
+            train.style.left = position + 'px';
+        }
+    }
+
+    function stopAnimation() {
+        clearInterval(interval);
+    }
+</script>
+
+</body>
+</html>
